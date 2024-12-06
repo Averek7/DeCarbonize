@@ -1,28 +1,22 @@
 const express = require("express");
 const cors = require("cors");
-const apiRequest = require("./akave"); // Correct import for CommonJS modules
+const akave = require("./akave"); // Correct import for CommonJS modules
+const connectToMongo = require("./config/db");
+require("dotenv").config();
+const userRoutes = require("./routes/user");
+const vehicleRoutes = require("./routes/vehicle");
+const akaveRoutes = require("./routes/akave");
 
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-app.get("/buckets", async (req, res) => {
-  try {
-    const data = await apiRequest("get", "/buckets"); // Await the response from apiRequest
-    res.send(data);
-  } catch (error) {
-    res.status(500).send({ error });
-  }
-});
-// curl -X POST http://localhost:8000/buckets -H "Content-Type: application/json" -d '{"bucketName": "myBucket"}'
-app.post("/buckets", async (req, res) => {
-  try {
-    const data = await apiRequest("post", "/buckets", req.body); // Await the response from apiRequest
-    res.send(data);
-  } catch (error) {
-    res.status(500).send({ error });
-  }
-});
+connectToMongo();
+
+app.use("/users", userRoutes);
+app.use("/vehicles", vehicleRoutes);
+app.use("/akave", akaveRoutes);
 
 app.listen(5000, () => {
   console.log("Server is running on port 5000");
