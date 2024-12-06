@@ -21,7 +21,7 @@ function Header({
   toggleSidebar: () => void;
 }) {
   const { isModalOpen, setModalOpen } = useGlobalContext();
-  const redirectUri = ORIGIN + '/login';
+  const redirectUri = ORIGIN ;
 
   const {
     authMethod,

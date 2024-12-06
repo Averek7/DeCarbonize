@@ -30,9 +30,7 @@ export const ORIGIN =
     ? `https://${DOMAIN}`
     : `http://${DOMAIN}:3000`;
 
-export const SELECTED_LIT_NETWORK = ((process.env
-  .NEXT_PUBLIC_LIT_NETWORK as string) ||
-  LIT_NETWORK.DatilDev) as LIT_NETWORKS_KEYS;
+export const SELECTED_LIT_NETWORK = 'datil-dev' as LIT_NETWORKS_KEYS;
 
 export const litNodeClient: LitNodeClient = new LitNodeClient({
   alertWhenUnauthorized: false,
