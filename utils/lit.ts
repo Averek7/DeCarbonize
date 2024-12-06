@@ -144,9 +144,9 @@ export async function registerWebAuthn(): Promise<IRelayPKP> {
     throw new Error('Minting failed');
   }
   const newPKP: IRelayPKP = {
-    tokenId: response.pkpTokenId,
-    publicKey: response.pkpPublicKey,
-    ethAddress: response.pkpEthAddress,
+    tokenId: response.pkpTokenId || '',
+    publicKey: response.pkpPublicKey || '',
+    ethAddress: response.pkpEthAddress || '',
   };
   return newPKP;
 }
@@ -178,11 +178,11 @@ export async function authenticateWithStytch(
   let provider: BaseProvider;
   if (method === 'email') {
     provider = litAuthClient.initProvider(ProviderType.StytchEmailFactorOtp, {
-      appId: process.env.NEXT_PUBLIC_STYTCH_PROJECT_ID,
+      appId: "project-test-ff8a30d1-50c5-4e31-9ab9-a2944662630e",
     });
   } else {
     provider = litAuthClient.initProvider(ProviderType.StytchSmsFactorOtp, {
-      appId: process.env.NEXT_PUBLIC_STYTCH_PROJECT_ID,
+      appId: "project-test-ff8a30d1-50c5-4e31-9ab9-a2944662630e",
     });
   }
 
@@ -237,8 +237,8 @@ export async function updateSessionSigs(
  */
 export async function getPKPs(authMethod: AuthMethod): Promise<IRelayPKP[]> {
   const provider = getProviderByAuthMethod(authMethod);
-  const allPKPs = await provider.fetchPKPsThroughRelayer(authMethod);
-  return allPKPs;
+  const allPKPs = await provider?.fetchPKPsThroughRelayer(authMethod);
+  return allPKPs || [];
 }
 
 /**
@@ -263,7 +263,7 @@ export async function mintPKP(authMethod: AuthMethod): Promise<IRelayPKP> {
     ).verifyAndMintPKPThroughRelayer(webAuthnInfo, options);
   } else {
     // Mint PKP through relay server
-    txHash = await provider.mintPKPThroughRelayer(authMethod, options);
+    txHash = await provider?.mintPKPThroughRelayer(authMethod, options) || '';
   }
 
   let attempts = 3;
@@ -271,7 +271,7 @@ export async function mintPKP(authMethod: AuthMethod): Promise<IRelayPKP> {
 
   while (attempts > 0) {
     try {
-      response = await provider.relay.pollRequestUntilTerminalState(txHash);
+      response = await provider?.relay.pollRequestUntilTerminalState(txHash);
       break;
     } catch (err) {
       console.warn('Minting failed, retrying...', err);
@@ -287,9 +287,9 @@ export async function mintPKP(authMethod: AuthMethod): Promise<IRelayPKP> {
   }
 
   const newPKP: IRelayPKP = {
-    tokenId: response.pkpTokenId,
-    publicKey: response.pkpPublicKey,
-    ethAddress: response.pkpEthAddress,
+    tokenId: response.pkpTokenId || '',
+    publicKey: response.pkpPublicKey || '',
+    ethAddress: response.pkpEthAddress || '',
   };
 
   return newPKP;
