@@ -15,4 +15,22 @@ async function apiRequest(method, endpoint, data = null) {
   }
 }
 
-module.exports = apiRequest;
+
+const FormData = require('form-data');
+const fs = require('fs');
+
+async function uploadFile(bucketName, filePath) {
+  const form = new FormData();
+  form.append('file', fs.createReadStream(filePath));
+  
+  try {
+    const response = await axios.post(`${API_BASE_URL}/buckets/${bucketName}/files`, form, {
+      headers: form.getHeaders(),
+    });
+    console.log(response.data);
+  } catch (error) {
+    console.error(error.response ? error.response.data : error.message);
+  }
+}
+
+module.exports = { apiRequest, uploadFile };
