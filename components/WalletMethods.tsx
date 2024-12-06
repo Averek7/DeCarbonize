@@ -3,6 +3,7 @@ import { useIsMounted } from '../hooks/useIsMounted';
 import Image from 'next/image';
 import Coinbase from '../assets/coinbase.png';
 import Metamask from '../assets/metamask.png';
+import { useEffect } from 'react';
 
 interface WalletMethodsProps {
     authWithEthWallet: (connector: any) => Promise<void>;
@@ -12,6 +13,16 @@ interface WalletMethodsProps {
 const WalletMethods = ({ authWithEthWallet, setView }: WalletMethodsProps) => {
     const isMounted = useIsMounted();
     const { connectors } = useConnect();
+
+    // Filter connectors to only include MetaMask and Coinbase Wallet
+    const filteredConnectors = connectors.filter(connector =>
+        ['metaMask', 'coinbaseWalletSDK'].includes(connector.id)
+    );
+
+    useEffect(() => {
+        console.log('filteredConnectors', filteredConnectors);
+        console.log('connectors', connectors);
+    }, [filteredConnectors]);
 
     if (!isMounted) return null;
 
@@ -23,32 +34,19 @@ const WalletMethods = ({ authWithEthWallet, setView }: WalletMethodsProps) => {
                 of the address.
             </p>
             <div className="buttons-container">
-                {connectors.map(connector => (
+                {filteredConnectors.map(connector => (
                     <button
                         type="button"
                         className="btn btn--outline"
-                        disabled={!connector.ready}
                         key={connector.id}
                         onClick={() => authWithEthWallet({ connector })}
                     >
-                        {connector.name.toLowerCase() === 'metamask' && (
-                            <div className="btn__icon">
-                                <Image
-                                    src={Metamask}
-                                    alt="MetaMask logo"
-                                    fill={true}
-                                ></Image>
-                            </div>
-                        )}
-                        {connector.name.toLowerCase() === 'coinbase wallet' && (
-                            <div className="btn__icon">
-                                <Image
-                                    src={Coinbase}
-                                    alt="Coinbase logo"
-                                    fill={true}
-                                ></Image>
-                            </div>
-                        )}
+                        <Image
+                            src={connector.id === 'metaMask' ? Metamask : Coinbase}
+                            alt={connector.name}
+                            width={24}
+                            height={24}/>
+
                         <span className="btn__label">Continue with {connector.name}</span>
                     </button>
                 ))}
