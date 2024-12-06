@@ -13,13 +13,13 @@ function Footer() {
     return (
         <>
             <div className="w-full h-full flex flex-col px-5 lg2:px-[4rem] md:px-[3rem] pt-10">
-                <Image
+                {/* <Image
                     src={"/logo/superbets.svg"}
                     width={150}
                     height={30}
                     alt={"SUPERBETS"}
                     className="ml-2"
-                />
+                /> */}
                 <div className="w-full h-full flex lg2:flex-row flex-col lg2:items-center items-start lg2:pb-16 pb-5 gap-5">
                     <div className="lg2:w-[30%] md:w-[60%] w-[90%]">
                         <p className="flex flex-col text-[#94A3B8] font-medium font-chakra text-sm leading-6 text-opacity-80 md:mx-0 mt-6 mb-2">
