@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useRouter } from "next/router";
 import Search from "../assets/Search.svg";
 import Image from "next/image";
+import { useAccount, useConnections } from "wagmi";
 
 function Header({
   sidebar,
@@ -12,6 +13,12 @@ function Header({
   toggleSidebar: () => void;
 }) {
   const router = useRouter();
+  const { address } = useAccount();
+
+  useEffect(() => {
+
+  }, [address])
+
   return (
     <div className="w-full flex flex-row justify-between items-center h-16 bg-gradient-to-r from-[#6E67F4] to-[#4D3EB3] px-3">
       <div className="">Logo</div>
