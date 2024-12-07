@@ -29,15 +29,15 @@ const config: HardhatUserConfig = {
   },
   etherscan: {
     apiKey: {
-     "base-sepolia": "PLACEHOLDER_STRING"
+    "base-sepolia": "PLACEHOLDER_STRING"
     },
     customChains: [
       {
         network: "base-sepolia",
         chainId: 84532,
         urls: {
-         apiURL: "https://api-sepolia.basescan.org/api",
-         browserURL: "https://sepolia.basescan.org"
+        apiURL: "https://api-sepolia.basescan.org/api",
+        browserURL: "https://sepolia.basescan.org"
         }
       }
     ]
