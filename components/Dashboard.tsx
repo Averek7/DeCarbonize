@@ -70,6 +70,8 @@ export default function Dashboard({
   }
 
   return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+            <div className="bg-white p-5 rounded-lg shadow-lg w-1/4 relative">
     <div className="container">
       <div className="logout-container">
         <button className="btn btn--link" onClick={handleLogout}>
@@ -101,6 +103,8 @@ export default function Dashboard({
           )}
         </button>
       </div>
+    </div>
+    </div>
     </div>
   );
 }

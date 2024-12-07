@@ -23,6 +23,8 @@ export default function AccountSelection({
   }
 
   return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+            <div className="bg-white p-5 rounded-lg shadow-lg w-1/4 relative">
     <div className="container">
       <div className="wrapper">
         {error && (
@@ -68,6 +70,8 @@ export default function AccountSelection({
           </button>
         </form>
       </div>
+    </div>
+    </div>
     </div>
   );
 }
