@@ -5,6 +5,14 @@ import Search from "../assets/Search.svg";
 import Image from "next/image";
 import { useAccount, useConnections } from "wagmi";
 
+import CCabi from "../assets/contractData/CarbonCoins.json"
+import Nftabi from "../assets/contractData/NFT.json"
+
+import CCaddress from "../assets/contractData/CC.json"
+import NFTaddress from "../assets/contractData/NFTAdd.json"
+import { useEthersSigner } from "../utils/Signer";
+import { ethers } from "ethers";
+
 function Header({
   sidebar,
   toggleSidebar,
@@ -14,6 +22,25 @@ function Header({
 }) {
   const router = useRouter();
   const { address } = useAccount();
+  const signer = useEthersSigner()
+
+  localStorage.setItem("signer", JSON.stringify(signer));
+  localStorage.setItem("address", JSON.stringify(address));
+
+  const instances = new ethers.Contract(
+    CCaddress.contract_address,
+    CCabi.abi,
+    signer
+  )
+
+  const nftInstances = new ethers.Contract(
+    NFTaddress.contract_address,
+    Nftabi.abi,
+    signer
+  )
+  localStorage.setItem("CCInstance", JSON.stringify(instances));
+  localStorage.setItem("NFTInstance", JSON.stringify(nftInstances));
+
 
   useEffect(() => {
 
