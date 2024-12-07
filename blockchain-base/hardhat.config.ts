@@ -29,7 +29,7 @@ const config: HardhatUserConfig = {
   },
   etherscan: {
     apiKey: {
-    "base-sepolia": "PLACEHOLDER_STRING"
+    "base-sepolia": "F1VJ464FZWRH3BVAF1UAUDP4K37JVZIA5R"
     },
     customChains: [
       {

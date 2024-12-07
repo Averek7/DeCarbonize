@@ -6,6 +6,14 @@ async function main() {
   await nft.waitForDeployment();
 
   console.log('NFT Contract Deployed at ' + nft.target);
+
+  const cc = await ethers.deployContract('CarbonCoins');
+
+  await cc.waitForDeployment();
+
+  console.log('cc Contract Deployed at ' + cc.target);
+
+
 }
 
 // We recommend this pattern to be able to use async/await everywhere
