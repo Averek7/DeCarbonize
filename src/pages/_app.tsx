@@ -2,13 +2,18 @@ import '../styles/globals.css';
 import '@rainbow-me/rainbowkit/styles.css';
 import type { AppProps } from 'next/app';
 import { StytchProvider } from '@stytch/nextjs';
+
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { WagmiProvider } from 'wagmi';
+
 import { RainbowKitProvider } from '@rainbow-me/rainbowkit';
 import { createStytchUIClient } from '@stytch/nextjs/ui';
+
 import { config } from '../wagmi';
+
 import Layout from '../../components/Layout';
 import { useRouter } from "next/router";
+
 import { GlobalProvider } from '../../context/GlobalContext';
 
 const client = new QueryClient();
@@ -35,13 +40,13 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <StytchProvider stytch={stytch}>
-    <WagmiProvider config={config}>
-      <QueryClientProvider client={client}>
-        <RainbowKitProvider>
+      <WagmiProvider config={config}>
+        <QueryClientProvider client={client}>
+          {/* <RainbowKitProvider> */}
           <GlobalProvider>{wrappedContent}</GlobalProvider>
-        </RainbowKitProvider>
-      </QueryClientProvider>
-    </WagmiProvider>
+          {/* </RainbowKitProvider> */}
+        </QueryClientProvider>
+      </WagmiProvider>
     </StytchProvider>
   );
 }

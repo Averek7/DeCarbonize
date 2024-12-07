@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import React, { ReactNode } from "react";
 import Header from './Header'
 import Sidebar from './Sidebar'
 import { useGlobalContext } from '../context/GlobalContext'
@@ -18,7 +18,7 @@ function Layout({ children }: Props) {
                 <Sidebar sidebar={sidebar} setSidebar={setSidebar} />
                 <section className="w-full relative overflow-hidden">
                     <main
-                        className={`marker:w-full h-full max-h-[calc(100%-0rem)] pt-6`}
+                        className={`marker:w-full h-full max-h-[calc(100%-0rem)]`}
                     >
                         <section className="w-full h-full overflow-x-hidden overflow-y-auto no-scrollbar">
                             <div

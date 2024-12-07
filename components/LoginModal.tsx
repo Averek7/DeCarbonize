@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from "react"
 
 import AuthMethods from './AuthMethods';
 import WalletMethods from './WalletMethods';
@@ -38,8 +38,15 @@ const LoginModal = ({
 
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-            <div className="bg-white p-5 rounded-lg shadow-lg w-1/4">
+            <div className="bg-white p-5 rounded-lg shadow-lg w-1/4 relative">
                 <div className="container">
+                    <button
+                        className="absolute top-3 right-3 text-gray-600 hover:text-gray-900 w-10 h-10"
+                        onClick={onClose}
+                        aria-label="Close"
+                    >
+                        &#x2715;
+                    </button>
                     <div className="wrapper">
                         {error && (
                             <div className="alert alert--error">

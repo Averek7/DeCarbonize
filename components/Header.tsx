@@ -1,6 +1,4 @@
 import React, { useEffect } from "react";
-import Search from "../assets/Search.svg";
-import Image from "next/image";
 import LoginModal from "./LoginModal";
 import { ORIGIN, signInWithDiscord, signInWithGoogle } from '../utils/lit';
 import { useGlobalContext } from "../context/GlobalContext";
@@ -21,7 +19,7 @@ function Header({
   toggleSidebar: () => void;
 }) {
   const { isModalOpen, setModalOpen } = useGlobalContext();
-  const redirectUri = ORIGIN ;
+  const redirectUri = ORIGIN;
 
   const {
     authMethod,
@@ -127,16 +125,12 @@ function Header({
   return (
     <div className="w-full flex flex-row justify-between items-center h-16 bg-gradient-to-r from-[#6E67F4] to-[#4D3EB3] px-3">
       <div className="">Logo</div>
-      <div className="flex justify-around items-center gap-5">
-        <div className="bg-[#00000033] flex p-2 rounded-md max-w-full">
-          <p className="text-[#94A3B8] w-full">
-            Search
-          </p>
-          <Image src={Search} width={20} height={20} alt="" color={"#94A3B8"} />
-        </div>
-        <div className="max-w-full">
-          <button onClick={handleLoginModal} className="cursor-pointer">Connect Wallet</button>
-        </div>
+      <div className="max-w-full">
+        <button onClick={handleLoginModal} className="cursor-pointer bg-[#192634] hover:bg-[#121D28] transition-all w-full sm:w-fit flex items-center rounded-md min-w-[8rem] h-10 px-5">
+          <span className="connect-wallet text-white font-semibold rounded-md text-sm">
+            Connect to Wallet
+          </span>
+        </button>
       </div>
       <LoginModal isOpen={isModalOpen} onClose={closeLoginModal} handleGoogleLogin={handleGoogleLogin}
         handleDiscordLogin={handleDiscordLogin}
