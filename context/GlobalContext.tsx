@@ -10,6 +10,8 @@ import React, {
 interface GlobalContextProps {
     sidebar: boolean;
     setSidebar: React.Dispatch<React.SetStateAction<boolean>>;
+    isModalOpen: boolean;
+    setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const GlobalContext = createContext<GlobalContextProps | undefined>(undefined);
@@ -21,8 +23,10 @@ interface GlobalProviderProps {
 
 export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
     const [sidebar, setSidebar] = useState<boolean>(false);
+    const [isModalOpen, setModalOpen] = useState<boolean>(false);
+
     return (
-        <GlobalContext.Provider value={{ sidebar, setSidebar }}>
+        <GlobalContext.Provider value={{ sidebar, setSidebar, isModalOpen, setModalOpen  }}>
             {children}
         </GlobalContext.Provider>
     )
