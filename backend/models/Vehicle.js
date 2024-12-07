@@ -31,7 +31,11 @@ const vehicleSchema = new Schema({
         type: String,
         required: true,
         unique: true,
-    }
+    },
+    blobId: {
+        type: String,
+        required: true,
+    },
 
 });
 

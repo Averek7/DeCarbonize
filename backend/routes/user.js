@@ -1,22 +1,31 @@
 const express = require('express');
 const User = require('../models/User');
 const Vehicle = require('../models/Vehicle');
-
+const walrus=require("../walrus")
 const router = express.Router();
 
 // Route to create a new user
 router.post('/create', async (req, res) => {
   try {
-    const { ownerName, email, vehicles } = req.body;
+    const { ownerName, email } = req.body;
+    console.log(req.body);  
+    const jsonuserString = JSON.stringify(req.body);
+    const userblob = new Blob([jsonuserString], { type: "application/json" });
+    const formData=new FormData();
+    formData.append("file",userblob);
 
+    const userresp=await walrus.putFile(formData);
+
+    console.log(userresp.newlyCreated.blobObject.blobId);
     const user = new User({
       ownerName,
       email,
-      vehicles,
+      blobId:userresp.newlyCreated.blobObject.blobId
     });
+    console.log(user);
 
     await user.save();
-    res.status(201).json({ message: 'User created successfully', user });
+    res.status(201).json({ message: 'User created successfully', user,userresp });
   } catch (error) {
     res.status(500).json({ message: 'Error creating user', error });
   }

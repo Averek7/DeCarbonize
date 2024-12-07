@@ -17,6 +17,15 @@ const userSchema = new Schema({
             ref: "Vehicle",
         },
     ],
+    blobId: {
+        type: String,
+        required: true,
+    },
+    nftIds:[
+        {
+            type: Number,
+        }
+    ]
 
 
 });
