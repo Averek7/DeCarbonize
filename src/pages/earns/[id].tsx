@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import axios from 'axios';
-import { useAccount } from 'wagmi';
+import { useAccount, useReadContract, useSendTransaction } from 'wagmi';
+import CCabi from "../../../assets/contractData/CarbonCoins.json"
+
 
 function EarnDetails() {
     const router = useRouter();
@@ -13,7 +15,36 @@ function EarnDetails() {
     const [cards, setCards] = useState<{ id: string; CarNumber: string; Description: string; timestamp: string }[]>([]);
     const [selectedCard, setSelectedCard] = useState(null);
 
-    console.log(address)
+    const [signer, setSigner] = useState(null);
+    const [instances, setInstances] = useState(null);
+    const [nftInstances, setNftInstances] = useState(null);
+
+    useEffect(() => {
+        const signerString = localStorage.getItem('signer');
+        const instancesString = localStorage.getItem('CCInstance');
+        const nftInstanceString = localStorage.getItem('nftInstances');
+
+        if (signerString) {
+            setSigner(JSON.parse(signerString));
+        }
+        if (instancesString) {
+            setInstances(JSON.parse(instancesString));
+        }
+        if (nftInstanceString) {
+            setNftInstances(JSON.parse(nftInstanceString));
+        }
+    }, []);
+
+    const result = useReadContract({
+        abi: CCabi.abi,
+        address: '0xAC61c25E93DA22263170636977cBae2bD99508E3',
+        functionName: 'addUser',
+    });
+    console.log(result)
+
+    const {sendTransaction} = useSendTransaction();
+
+
     useEffect(() => {
         const fetchCards = async () => {
             try {

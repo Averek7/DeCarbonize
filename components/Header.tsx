@@ -24,8 +24,7 @@ function Header({
   const { address } = useAccount();
   const signer = useEthersSigner()
 
-  localStorage.setItem("signer", JSON.stringify(signer));
-  localStorage.setItem("address", JSON.stringify(address));
+  // localStorage.setItem("signer", JSON.stringify(signer));
 
   const instances = new ethers.Contract(
     CCaddress.contract_address,
@@ -38,12 +37,11 @@ function Header({
     Nftabi.abi,
     signer
   )
-  localStorage.setItem("CCInstance", JSON.stringify(instances));
-  localStorage.setItem("NFTInstance", JSON.stringify(nftInstances));
-
 
   useEffect(() => {
-
+    localStorage.setItem("address", JSON.stringify(address));
+    localStorage.setItem("CCInstance", JSON.stringify(instances));
+    localStorage.setItem("NFTInstance", JSON.stringify(nftInstances));
   }, [address])
 
   return (
