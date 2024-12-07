@@ -17,7 +17,7 @@ contract CarbonCoins {
         address userAddress;
         uint256 earnings;
     }
-     
+    
     // Creating a mapping
     mapping (
     address => userInfo) userData;
@@ -45,15 +45,38 @@ contract CarbonCoins {
 
     function addReward(address userAdd, uint256 rewardAmount) external returns (uint256) {
         // Check if the user exists
-        // require(userData[userAdd].balance > 0, "User not found");
+        if (userData[userAdd].totalEarnings > 0) {
+            // Update user balance adding reward balance
+            userData[userAdd].balance = userData[userAdd].balance + rewardAmount;
+            userData[userAdd].totalEarnings = userData[userAdd].totalEarnings + rewardAmount;
+        } else {
+            // Add user to the mapping
+            userData[userAdd] = userInfo({
+                balance: rewardAmount,
+                totalEarnings: rewardAmount
+            });
+        }
 
-        // Update user balance adding reward balance
-        userData[userAdd].balance = userData[userAdd].balance + rewardAmount;
+        return userData[userAdd].balance;
+    }
+
+    function subtractToken(address userAdd, uint256 amount) external returns (uint256) {
+        // Check if the user exists
+        require(userData[userAdd].totalEarnings > 0, "User does not exist");
+
+        // Check if the user has enough balance
+        require(userData[userAdd].balance >= amount, "Insufficient balance");
+
+        // Subtract the amount from the user balance
+        userData[userAdd].balance = userData[userAdd].balance - amount;
 
         return userData[userAdd].balance;
     }
 
     function addUser(address userAdd) external returns (uint256) {
+
+        // Check if the user exists
+        require(userData[userAdd].totalEarnings == 0, "User already exists");
 
         userData[userAdd] = userInfo({
             balance: 0,         
