@@ -1,7 +1,17 @@
 import React from 'react'
 import LottieCard from './LottieCard'
+import { useRouter } from 'next/router';
 
 function Banner() {
+    const router = useRouter();
+
+    const handleStartEarning = () => {
+        router.push('/earn'); 
+    };
+
+    const handleCarbonCredits = () => {
+        router.push('/credits')
+    }
     return (
         <>
             <div className="flex flex-col md:flex-row h-full">
@@ -15,7 +25,7 @@ function Banner() {
                     <p className="text-center text-gray-600 mb-6">
                         Take actions to reduce your carbon footprint and earn Carbon Coins as rewards.
                     </p>
-                    <button className="bg-green-600 text-white px-6 py-2 rounded shadow hover:bg-green-700">
+                    <button className="bg-green-600 text-white px-6 py-2 rounded shadow hover:bg-green-700" onClick={handleStartEarning}>
                         Start Earning
                     </button>
                 </div>

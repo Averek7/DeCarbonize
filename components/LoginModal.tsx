@@ -1,12 +1,13 @@
-import React, { useState } from "react"
+import React, { useState } from "react";
 
 import AuthMethods from './AuthMethods';
 import WalletMethods from './WalletMethods';
 import WebAuthn from './WebAuthn';
 import StytchOTP from './StytchOTP';
+import SignUpMethods from './SignUpMethods';
+import { useRouter } from "next/router";
 
-
-type AuthView = 'default' | 'email' | 'phone' | 'wallet' | 'webauthn';
+type AuthView = 'default' | 'email' | 'phone' | 'wallet' | 'webauthn' | 'signup';
 
 interface LoginProps {
     isOpen: boolean;
@@ -18,8 +19,8 @@ interface LoginProps {
     authWithStytch: any;
     signUp: any;
     error?: Error;
+    registerWithWebAuthn: () => Promise<void>;
 }
-
 
 const LoginModal = ({
     isOpen,
@@ -31,22 +32,24 @@ const LoginModal = ({
     authWithStytch,
     signUp,
     error,
+    registerWithWebAuthn,
 }: LoginProps) => {
     if (!isOpen) return null;
-
+    const router = useRouter()
     const [view, setView] = useState<AuthView>('default');
 
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
             <div className="bg-white p-5 rounded-lg shadow-lg w-1/4 relative">
+                {/* Close Button */}
+                <button
+                    className="absolute top-3 right-3 text-gray-600 hover:text-gray-900 w-10 h-10"
+                    onClick={onClose}
+                    aria-label="Close"
+                >
+                    &#x2715;
+                </button>
                 <div className="container">
-                    <button
-                        className="absolute top-3 right-3 text-gray-600 hover:text-gray-900 w-10 h-10"
-                        onClick={onClose}
-                        aria-label="Close"
-                    >
-                        &#x2715;
-                    </button>
                     <div className="wrapper">
                         {error && (
                             <div className="alert alert--error">
@@ -63,8 +66,36 @@ const LoginModal = ({
                                     setView={setView as any}
                                 />
                                 <div className="buttons-container">
-                                    <button type="button" className="btn btn--link" onClick={signUp}>
+                                    <button
+                                        type="button"
+                                        className="btn btn--link"
+                                        onClick={() => setView('signup')}
+                                    >
                                         Need an account? Sign up
+                                    </button>
+                                </div>
+                            </>
+                        )}
+                        {view === 'signup' && (
+                            <>
+                                <h1>Create your account</h1>
+                                <SignUpMethods
+                                    handleGoogleLogin={handleGoogleLogin}
+                                    handleDiscordLogin={handleDiscordLogin}
+                                    authWithEthWallet={authWithEthWallet}
+                                    registerWithWebAuthn={registerWithWebAuthn}
+                                    authWithWebAuthn={authWithWebAuthn}
+                                    authWithStytch={authWithStytch}
+                                    goToLogin={() => router.push('/')}
+                                    error={error}
+                                />
+                                <div className="buttons-container">
+                                    <button
+                                        type="button"
+                                        className="btn btn--link"
+                                        onClick={() => setView('default')}
+                                    >
+                                        Already have an account? Log in
                                     </button>
                                 </div>
                             </>

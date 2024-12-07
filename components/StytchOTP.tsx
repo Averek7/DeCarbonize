@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useStytch } from '@stytch/nextjs';
+import { useStytch } from "@stytch/nextjs";
 
 interface StytchOTPProps {
     method: OtpMethod;

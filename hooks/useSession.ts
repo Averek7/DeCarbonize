@@ -17,6 +17,7 @@ export default function useSession() {
     async (authMethod: AuthMethod, pkp: IRelayPKP): Promise<void> => {
       setLoading(true);
       setError(undefined);
+      console.log('initSession pkp: ', pkp);
       try {
         // Prepare session sigs params
         const chain = 'ethereum';
@@ -44,7 +45,7 @@ export default function useSession() {
 
         setSessionSigs(sessionSigs);
       } catch (err) {
-        setError(err);
+        setError(err as Error);
       } finally {
         setLoading(false);
       }
