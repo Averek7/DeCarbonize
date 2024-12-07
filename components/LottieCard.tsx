@@ -9,23 +9,24 @@ declare global {
 }
 interface LottieCardProps {
     src: string;
+    width?: string;
 }
 
-function LottieCard({ src }: LottieCardProps) {
+function LottieCard({ src, width }: LottieCardProps) {
     const ref = useRef(null);
     useEffect(() => {
         import("@lottiefiles/lottie-player");
     });
     return (
-        <div style={{ width: "550px" }}>
+        <div style={{ width: width }}>
             <lottie-player
                 id="firstLottie"
                 ref={ref}
                 autoplay
                 loop
                 mode="normal"
-                width="450"
-                height="450"
+                width="400"
+                height="400"
                 src={src}
             />
         </div>

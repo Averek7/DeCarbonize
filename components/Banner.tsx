@@ -17,12 +17,12 @@ function Banner() {
             <div className="flex flex-col md:flex-row h-full">
                 {/* Left Partition */}
                 <div className="flex-1 bg-green-100 p-4 flex flex-col justify-center items-center">
-                    <LottieCard src="https://lottie.host/1965c5ce-8dbb-4672-9cfc-e3f2c4f267f3/MafRYGuVzY.json" />
+                    <LottieCard src="https://lottie.host/1965c5ce-8dbb-4672-9cfc-e3f2c4f267f3/MafRYGuVzY.json" width='750px' />
 
-                    <h1 className="text-2xl font-bold text-green-800 mb-4">
+                    <h1 className="text-2xl font-bold text-green-800 mb-4 mt-6">
                         Earn or Save Carbon Coins
                     </h1>
-                    <p className="text-center text-gray-600 mb-6">
+                    <p className="text-center text-gray-600 mb-6 mt-2">
                         Take actions to reduce your carbon footprint and earn Carbon Coins as rewards.
                     </p>
                     <button className="bg-green-600 text-white px-6 py-2 rounded shadow hover:bg-green-700" onClick={handleStartEarning}>
@@ -32,7 +32,7 @@ function Banner() {
 
                 {/* Right Partition */}
                 <div className="flex-1 bg-blue-100 p-4 flex flex-col justify-center items-center">
-                    <LottieCard src="https://lottie.host/a21c23de-6842-4d4d-a8f8-30a861d53950/REyFwk1Wc2.json" />
+                    <LottieCard src="https://lottie.host/a21c23de-6842-4d4d-a8f8-30a861d53950/REyFwk1Wc2.json" width='500px' />
 
 
                     <h1 className="text-2xl font-bold text-blue-800 mb-4">
